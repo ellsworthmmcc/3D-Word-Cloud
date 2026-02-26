@@ -2,9 +2,13 @@ from contextlib import asynccontextmanager
 from typing import Annotated
 
 from fastapi import Depends, FastAPI, Request
+from fastapi.exception_handlers import http_exception_handler, request_validation_exception_handler
+from fastapi.exceptions import RequestValidationError
 from sqlalchemy.ext.asyncio import AsyncSession
+from starlette.exceptions import HTTPException as StarletteHTTPException
 import uvicorn
 
+from backend.routers import analyze
 from database import Base, engine, get_db
 
 
@@ -27,10 +31,28 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+app.include_router(analyze.router, prefix='/analyze', tags=['analyze'])
+
 
 @app.get('/', include_in_schema=False, name='home')
 async def home(request: Request, db: Annotated[AsyncSession, Depends(get_db)]):
     pass
+
+
+@app.exception_handler(StarletteHTTPException)
+async def general_http_exception_handler(
+    request: Request,
+    exception: StarletteHTTPException,
+):
+    return await http_exception_handler(request, exception)
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(
+    request: Request,
+    exception: RequestValidationError,
+):
+    return await request_validation_exception_handler(request, exception)
 
 
 if __name__ == '__main__':
