@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-if ! command -v python3 &> /dev/null; then
-    echo "Python3 not found. Try: brew install python@3.12"
-    exit 1
-fi
-
 echo "--- Setting up Backend ---"
 (
   cd backend
@@ -26,7 +21,6 @@ echo "--- Setting up Frontend ---"
 
   npm install
 )
-
 
 trap 'kill $(jobs -p)' EXIT
 
