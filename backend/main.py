@@ -4,6 +4,7 @@ from typing import Annotated
 from fastapi import Depends, FastAPI, Request
 from fastapi.exception_handlers import http_exception_handler, request_validation_exception_handler
 from fastapi.exceptions import RequestValidationError
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette.exceptions import HTTPException as StarletteHTTPException
 import uvicorn
@@ -29,6 +30,14 @@ app = FastAPI(
     docs_url='/docs',
     redoc_url='/redoc',
     lifespan=lifespan
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(analyze.router, prefix='/analyze', tags=['analyze'])
