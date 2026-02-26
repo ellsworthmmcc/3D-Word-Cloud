@@ -16,5 +16,5 @@ class ArticleResponse(ArticleBase):
 
     id: int
     url: str
-    article_analysis: dict[str, int]
+    article_analysis: dict[str, float]
     date_created: datetime

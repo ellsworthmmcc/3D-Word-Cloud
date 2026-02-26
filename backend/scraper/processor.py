@@ -6,7 +6,7 @@ import json
 
 # TODO Add NLP later
 async def processor(words: list[str]) -> str:
-    word_dict: dict[str, int] = {}
+    word_dict: dict[str, float] = {}
 
     for raw_words in words:
         # TODO fix regex
