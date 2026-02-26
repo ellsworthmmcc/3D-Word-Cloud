@@ -25,8 +25,7 @@ async def scraper(url: str) -> list[str] | None:
 
     words: list[str] = []
 
-    for raw_text in soup.find_all(['div', 'article', 'p', 'span']):
-        print(raw_text.text)
+    for raw_text in soup.find_all(['div', 'article', 'p',]):
         words.append(raw_text.text)
 
     return words
