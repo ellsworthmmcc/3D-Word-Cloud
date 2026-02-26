@@ -5,6 +5,7 @@ from fastapi import Depends, FastAPI, Request
 from fastapi.exception_handlers import http_exception_handler, request_validation_exception_handler
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette.exceptions import HTTPException as StarletteHTTPException
 import uvicorn
@@ -44,8 +45,8 @@ app.include_router(analyze.router, prefix='/analyze', tags=['analyze'])
 
 
 @app.get('/', include_in_schema=False, name='home')
-async def home(request: Request, db: Annotated[AsyncSession, Depends(get_db)]):
-    return {'test': 'This is a test'}
+async def home():
+    return RedirectResponse(url="/docs")
 
 
 @app.exception_handler(StarletteHTTPException)
