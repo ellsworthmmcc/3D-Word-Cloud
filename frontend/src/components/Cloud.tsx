@@ -13,8 +13,6 @@ function Word({ children, position, value }: WordProps) {
   const ref = useRef<THREE.Mesh>(null!)
   const [hovered, setHovered] = useState(false)
 
-  const color = new THREE.Color()
-
   useEffect(() => {
     document.body.style.cursor = hovered ? "pointer" : "auto"
     return () => {
@@ -27,7 +25,7 @@ function Word({ children, position, value }: WordProps) {
 
     const material = ref.current.material as THREE.MeshBasicMaterial
 
-    const hue = 1 - value  // 0.66 (blue) → 0 (red)
+    const hue = 3 - value * 3
 
     const baseColor = new THREE.Color().setHSL(
       hue,
@@ -47,7 +45,7 @@ function Word({ children, position, value }: WordProps) {
     <Billboard position={position}>
       <Text
         ref={ref}
-        fontSize={.5 + value * 3}
+        fontSize={value + value * 2}
         letterSpacing={-0.05}
         lineHeight={1}
         color="white"
@@ -117,6 +115,10 @@ type CloudProps = {
 }
 
 function Cloud({analysis}: CloudProps) {
+  const wordCount = Object.keys(analysis).length
+  const count = Math.ceil(Math.sqrt(wordCount))
+
+
   return (
     <div className="w-screen h-screen">
       <Canvas
@@ -127,7 +129,7 @@ function Cloud({analysis}: CloudProps) {
 
         <Suspense fallback={null}>
           <group rotation={[0.3, 0.5, 0]}>
-            <CloudGenerator analysis={analysis} count={8} radius={20} />
+            <CloudGenerator analysis={analysis} count={count} radius={20} />
           </group>
         </Suspense>
 
