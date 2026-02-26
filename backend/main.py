@@ -53,7 +53,3 @@ async def validation_exception_handler(
     exception: RequestValidationError,
 ):
     return await request_validation_exception_handler(request, exception)
-
-
-if __name__ == '__main__':
-    uvicorn.run("main.app", host="0.0.0.0", port=8000, reload=True)

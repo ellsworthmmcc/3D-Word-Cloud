@@ -134,7 +134,7 @@ async def delete_article_analysis(
         .where(models.Article.id == article_id)
     )
     article = result.scalars().first()
-    if article:
+    if article is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Article not found",
