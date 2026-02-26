@@ -30,6 +30,8 @@ and a **React + Three.js frontend** to render interactive 3D visualizations.
 ## Setup Script Instructions
 ./setup.sh
 
+---
+
 ## Manual Setup Instructions
 
 ### 1. Backend
@@ -48,16 +50,18 @@ npm install
 ```
 
 ### 3. Running the Project
-# Activate backend venv and start backend
+## Activate backend venv and start backend
 source backend/.venv/bin/activate
 uvicorn backend.main:app --reload --port 8000
 
-# In another terminal, start frontend
+## In another terminal, start frontend
 cd frontend
 npm run dev
 
 Backend API is available at: http://localhost:8000/analyze
 Frontend is available at: http://localhost:5173 (Vite default)
+
+---
 
 Notes
 - Use Python 3.12 for compatibility.
