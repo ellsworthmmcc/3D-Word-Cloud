@@ -3,8 +3,6 @@ import { API_BASE_URL, type ArticleResponse } from "../utils";
 import { useState } from "react";
 import CloudHolder from "./Cloud";
 
-
-
 function SubmitURL() {
   const [url, setUrl] = useState("");
   const [data, setData] = useState<ArticleResponse | null>(null);
@@ -20,6 +18,29 @@ function SubmitURL() {
       setError("Please enter a URL");
       return;
     }
+
+    try {
+      setLoading(true);
+
+      const response = await axios.post<ArticleResponse>(
+        `${API_BASE_URL}`, { url }
+      );
+
+      setData(response.data);
+    } catch (err: any) {
+      if (err.response?.data?.detail) {
+        setError(err.response.data.detail);
+      } else {
+        setError("An error has occured");
+      }
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const exampleButtonSubmit = async (url: string) => {
+    setError(null);
+    setData(null);
 
     try {
       setLoading(true);
@@ -63,10 +84,44 @@ function SubmitURL() {
         </button>
       </form>
 
-      <div className="flex w-full">
-        {data && (
-          <CloudHolder analysis={data?.article_analysis}/>
+      <div className="flex flex-col w-full gap-10">
+        {(data && !loading) && (
+          <div className="flex w-min h-min">
+            <CloudHolder analysis={data?.article_analysis}/>
+          </div>
         )}
+        {error && (
+          <div className="w-full flex items-center justify-center">
+            <div className="text-red-500 text-xl font-semibold">
+              That article cannot be analyzed. Try another one.
+            </div>
+          </div>
+        )}
+        {!data && (
+          <div className="w-full flex flex-col items-center justify-center gap-6 py-6">
+            <button
+              onClick={() => exampleButtonSubmit("https://en.wikipedia.org/wiki/Sumer")}
+              className="px-6 py-6 bg-indigo-600 rounded-lg hover:bg-indigo-500 disabled:opacity-50"
+            >
+              https://en.wikipedia.org/wiki/Sumer
+            </button>
+
+            <button
+              onClick={() => exampleButtonSubmit("https://en.wikipedia.org/wiki/Gqeberha")}
+              className="px-6 py-6 bg-indigo-600 rounded-lg hover:bg-indigo-500 disabled:opacity-50"
+            >
+              https://en.wikipedia.org/wiki/Gqeberha
+            </button>
+
+            <button
+              onClick={() => exampleButtonSubmit("https://en.wikipedia.org/wiki/Eshnunna")}
+              className="px-6 py-6 bg-indigo-600 rounded-lg hover:bg-indigo-500 disabled:opacity-50"
+            >
+              https://en.wikipedia.org/wiki/Eshnunna
+            </button>
+          </div>
+        )}
+
       </div>
     </>
   )
