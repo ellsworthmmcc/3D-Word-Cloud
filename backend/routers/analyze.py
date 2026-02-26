@@ -30,10 +30,7 @@ async def analyze_article(
     )
     existing_article = result.scalars().first()
     if existing_article:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Article already processed",
-        )
+        return existing_article
 
     article_analysis = await url_processor(url=article.url)
     if article_analysis is None:
@@ -106,14 +103,14 @@ async def update_article_analysis(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Article not found"
         )
-    
+
     article_analysis = await url_processor(url=article.url)
     if article_analysis is None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Article unable to be processed"
         )
-    
+
     article.article_analysis = article_analysis
 
     await db.commit()
