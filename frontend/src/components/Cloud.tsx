@@ -120,7 +120,7 @@ function Cloud({analysis}: CloudProps) {
 
 
   return (
-    <div className="flex w-full h-screen">
+    <div className="flex-1 w-full" style={{height: '80vh'}}>
       <Canvas
         dpr={[1, 2]}
         camera={{ position: [0, 0, 35], fov: 75 }}
