@@ -52,11 +52,11 @@ npm install
 ```
 
 ### 3. Running the Project
-## Activate backend venv and start backend
+#### Activate backend venv and start backend
 source backend/.venv/bin/activate
 uvicorn backend.main:app --reload --port 8000
 
-## In another terminal, start frontend
+#### In another terminal, start frontend
 cd frontend
 npm run dev
 
