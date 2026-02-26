@@ -6,9 +6,10 @@ import { Billboard, Text, TrackballControls } from "@react-three/drei"
 type WordProps = {
   position: THREE.Vector3
   children: string
+  value: number
 }
 
-function Word({ children, position }: WordProps) {
+function Word({ children, position, value }: WordProps) {
   const ref = useRef<THREE.Mesh>(null!)
   const [hovered, setHovered] = useState(false)
 
@@ -25,8 +26,19 @@ function Word({ children, position }: WordProps) {
     if (!ref.current) return
 
     const material = ref.current.material as THREE.MeshBasicMaterial
+
+    const hue = 1 - value  // 0.66 (blue) → 0 (red)
+
+    const baseColor = new THREE.Color().setHSL(
+      hue,
+      1,
+      0.5
+    )
+
+    const hoverColor = new THREE.Color("#fa2720")
+
     material.color.lerp(
-      color.set(hovered ? "#fa2720" : "#ffffff"),
+      hovered ? hoverColor : baseColor,
       0.1
     )
   })
@@ -35,7 +47,7 @@ function Word({ children, position }: WordProps) {
     <Billboard position={position}>
       <Text
         ref={ref}
-        fontSize={2.5}
+        fontSize={.5 + value * 3}
         letterSpacing={-0.05}
         lineHeight={1}
         color="white"
@@ -65,9 +77,9 @@ function CloudGenerator({
   radius = 20 
 } : CloudGeneratorProps) {
   const words = useMemo(() => {
-    const temp: [THREE.Vector3, string][] = []
+    const temp: [THREE.Vector3, string, number][] = []
     const spherical = new THREE.Spherical()
-    const entries = Object.keys(analysis)
+    const entries = Object.entries(analysis)
 
     const phiSpan = Math.PI / (count + 1)
     const thetaSpan = (Math.PI * 2) / count
@@ -78,8 +90,11 @@ function CloudGenerator({
           spherical.set(radius, phiSpan * i, thetaSpan * j)
         )
         
-        const word = entries[i * count + j]
-        if (word) temp.push([position, word])
+        const wordEntry = entries[i * count + j]
+        if (wordEntry) {
+          const [word, value] = wordEntry
+          temp.push([position, word, value])
+        }
       }
     }
 
@@ -88,8 +103,8 @@ function CloudGenerator({
 
   return (
     <>
-      {words.map(([pos, word], i) => (
-        <Word key={i} position={pos}>
+      {words.map(([pos, word, val], i) => (
+        <Word key={i} position={pos} value={val}>
           {word}
         </Word>
       ))}
