@@ -9,7 +9,7 @@ from backend.database.database import Base
 
 
 class Article(Base):
-    __tablename__ = 'article'
+    __tablename__ = 'articles'
 
     id: Mapped[int] = mapped_column(
         Integer,
@@ -19,7 +19,7 @@ class Article(Base):
     )
 
     url: Mapped[str] = mapped_column(
-        String(150),
+        String(2000),
         unique=True,
         nullable=False,
     )

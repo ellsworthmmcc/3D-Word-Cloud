@@ -20,6 +20,8 @@ async def processor(words: list[str]) -> str:
                 word_dict[word] = 1
 
     sorted_word_dict = {k: v for k, v in sorted(word_dict.items(), key=lambda item: item[1], reverse=True)}
-    shorten_word_dict = dict(itertools.islice(sorted_word_dict.items(), 50))
+    shortened_word_dict = dict(itertools.islice(sorted_word_dict.items(), 50))
 
-    return json.dumps(shorten_word_dict, indent=4)
+    return shortened_word_dict
+
+    return json.dumps(shortened_word_dict, indent=4)

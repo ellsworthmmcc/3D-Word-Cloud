@@ -4,7 +4,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 
 class ArticleBase(BaseModel):
-    url: str = Field(min_length=1, max_length=150)
+    url: str = Field(min_length=1, max_length=2000)
 
 
 class ArticleCreate(ArticleBase):
@@ -16,5 +16,5 @@ class ArticleResponse(ArticleBase):
 
     id: int
     url: str
-    article_analysis: str
-    date_posted: datetime
+    article_analysis: dict[str, int]
+    date_created: datetime
