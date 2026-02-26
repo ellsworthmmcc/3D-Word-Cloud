@@ -32,10 +32,16 @@ async def preprocessing(words: list[str]) -> list[str]:
         sentence = re.findall(r"\b[a-zA-Z]{2,}\b", raw_words)
 
         processed_sentence: str = ''
-        for word in sentence not in STOPWORDS:
-            processed_sentence += word + ' '
+        for word in sentence:
+            if str.strip(word) not in STOPWORDS:
+                processed_sentence += word + ' '
 
-        processed_words.append(processed_sentence)
+            if len(processed_sentence) > 100:
+                processed_words.append(processed_sentence)
+                processed_sentence = ''
+
+        if processed_sentence:
+            processed_words.append(processed_sentence)
 
     return processed_words
 
@@ -81,8 +87,8 @@ async def processor(words: list[str]) -> dict[str, float]:
         )
     }
 
-    sliced_word_scores = dict(islice(sorted_word_scores.items(), 49))
+    sliced_word_scores = dict(islice(sorted_word_scores.items(), 70))
 
-    normalized_word_scores: dict[str, float] = normalization(word_scores=sliced_word_scores)
+    normalized_word_scores: dict[str, float] = await normalization(word_scores=sliced_word_scores)
 
     return normalized_word_scores
