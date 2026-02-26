@@ -61,6 +61,17 @@ function SubmitURL() {
     }
   }
 
+  function ExampleButton({url} : {url: string}) {
+    return (
+      <button
+        onClick={() => exampleButtonSubmit(url)}
+        className="px-6 py-6 bg-indigo-600 rounded-lg hover:bg-indigo-500 disabled:opacity-50"
+      >
+        {url}
+      </button>
+    )
+  }
+
   return (
     <>
       <form
@@ -99,26 +110,15 @@ function SubmitURL() {
         )}
         {!data && (
           <div className="w-full flex flex-col items-center justify-center gap-6 py-6">
-            <button
-              onClick={() => exampleButtonSubmit("https://en.wikipedia.org/wiki/Sumer")}
-              className="px-6 py-6 bg-indigo-600 rounded-lg hover:bg-indigo-500 disabled:opacity-50"
-            >
-              https://en.wikipedia.org/wiki/Sumer
-            </button>
-
-            <button
-              onClick={() => exampleButtonSubmit("https://en.wikipedia.org/wiki/Gqeberha")}
-              className="px-6 py-6 bg-indigo-600 rounded-lg hover:bg-indigo-500 disabled:opacity-50"
-            >
-              https://en.wikipedia.org/wiki/Gqeberha
-            </button>
-
-            <button
-              onClick={() => exampleButtonSubmit("https://en.wikipedia.org/wiki/Eshnunna")}
-              className="px-6 py-6 bg-indigo-600 rounded-lg hover:bg-indigo-500 disabled:opacity-50"
-            >
-              https://en.wikipedia.org/wiki/Eshnunna
-            </button>
+            <ExampleButton
+              url="https://en.wikipedia.org/wiki/Babylon"
+            />
+            <ExampleButton
+              url="https://en.wikipedia.org/wiki/Gqeberha"
+            />
+            <ExampleButton
+              url="https://en.wikipedia.org/wiki/Eshnunna"
+            />
           </div>
         )}
 
