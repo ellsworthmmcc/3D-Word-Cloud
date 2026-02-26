@@ -26,14 +26,33 @@ STOPWORDS = {
 
 
 async def preprocessing(words: list[str]) -> list[str]:
-    processed_words: list[str] = [
-        word.lower()
-        for raw_words in words
-        for word in re.findall(r"\b[a-zA-Z]{2,}\b", raw_words)
-        if word and word not in STOPWORDS
-    ]
+
+    processed_words: list[str] = []
+    for raw_words in words:
+        sentence = re.findall(r"\b[a-zA-Z]{2,}\b", raw_words)
+
+        processed_sentence: str = ''
+        for word in sentence not in STOPWORDS:
+            processed_sentence += word + ' '
+
+        processed_words.append(processed_sentence)
 
     return processed_words
+
+
+async def normalization(word_scores: dict[str, float]) -> dict[str, float]:
+    values = word_scores.values()
+    min_val = min(values)
+    max_val = max(values)
+
+    # prevent division by 0
+    if max_val == min_val:
+        return {word: 1.0 for word in word_scores}
+
+    return {
+        word: (val - min_val) / (max_val - min_val)
+        for word, val in word_scores.items()
+    }
 
 
 async def processor(words: list[str]) -> dict[str, float]:
@@ -62,14 +81,8 @@ async def processor(words: list[str]) -> dict[str, float]:
         )
     }
 
-    sliced_word_scores = dict(islice(sorted_word_scores.items(), 50))
+    sliced_word_scores = dict(islice(sorted_word_scores.items(), 49))
 
-    max_val = max(sliced_word_scores.values())
-    if max_val > 1:
-        normalized_word_scores = {
-            word: val / max_val
-            for word, val in word_scores.items()
-        }
-        return normalized_word_scores
+    normalized_word_scores: dict[str, float] = normalization(word_scores=sliced_word_scores)
 
-    return sliced_word_scores
+    return normalized_word_scores
