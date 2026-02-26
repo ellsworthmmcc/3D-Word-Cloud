@@ -5,8 +5,8 @@ from backend.scraper.processor import processor
 async def url_processor(url: str) -> dict[str, float] | None:
     scraped_words = await scraper(url)
 
-    # TODO add error handling
-    if scraped_words is None:
+    if scraped_words is None or len(scraped_words) == 0:
+        print("Unable to scrape article")
         return None
 
     processed_words: dict[str, float] = {}
