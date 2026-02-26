@@ -87,7 +87,7 @@ async def processor(words: list[str]) -> dict[str, float]:
         )
     }
 
-    sliced_word_scores = dict(islice(sorted_word_scores.items(), 70))
+    sliced_word_scores = dict(islice(sorted_word_scores.items(), 64))
 
     normalized_word_scores: dict[str, float] = await normalization(word_scores=sliced_word_scores)
 
