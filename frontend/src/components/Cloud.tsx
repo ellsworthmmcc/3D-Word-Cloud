@@ -74,30 +74,27 @@ function CloudGenerator({
   count = 6, 
   radius = 20 
 } : CloudGeneratorProps) {
-  const words = useMemo(() => {
-    const temp: [THREE.Vector3, string, number][] = []
-    const spherical = new THREE.Spherical()
-    const entries = Object.entries(analysis)
+const words = useMemo(() => {
+  const temp: [THREE.Vector3, string, number][] = []
+  const spherical = new THREE.Spherical()
+  const entries = Object.entries(analysis)
 
-    const phiSpan = Math.PI / (count + 1)
-    const thetaSpan = (Math.PI * 2) / count
+  const phiSpan = Math.PI / (count + 1)
+  const thetaSpan = (Math.PI * 2) / count
 
-    for (let i = 1; i < count + 1; i++) {
-      for (let j = 0; j < count; j++) {
-        const position = new THREE.Vector3().setFromSpherical(
-          spherical.set(radius, phiSpan * i, thetaSpan * j)
-        )
-        
-        const wordEntry = entries[i * count + j]
-        if (wordEntry) {
-          const [word, value] = wordEntry
-          temp.push([position, word, value])
-        }
-      }
-    }
+  entries.forEach(([word, value], idx) => {
+    const i = Math.floor(idx / count) + 1
+    const j = idx % count
 
-    return temp
-  }, [count, radius])
+    const position = new THREE.Vector3().setFromSpherical(
+      spherical.set(radius, phiSpan * i, thetaSpan * j)
+    )
+
+    temp.push([position, word, value])
+  })
+
+  return temp
+}, [analysis, count, radius])
 
   return (
     <>
