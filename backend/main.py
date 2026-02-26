@@ -9,7 +9,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 import uvicorn
 
 from backend.routers import analyze
-from database import Base, engine, get_db
+from backend.database.database import Base, engine, get_db
 
 
 @asynccontextmanager
@@ -36,7 +36,7 @@ app.include_router(analyze.router, prefix='/analyze', tags=['analyze'])
 
 @app.get('/', include_in_schema=False, name='home')
 async def home(request: Request, db: Annotated[AsyncSession, Depends(get_db)]):
-    pass
+    return {'test': 'This is a test'}
 
 
 @app.exception_handler(StarletteHTTPException)
