@@ -108,13 +108,13 @@ async def update_article_analysis(
         )
     
     article_analysis = await url_processor(url=article.url)
-
-    article.article_analysis = article_analysis
     if article_analysis is None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Article unable to be processed"
         )
+    
+    article.article_analysis = article_analysis
 
     await db.commit()
     await db.refresh(article)
