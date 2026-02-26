@@ -71,7 +71,7 @@ async def processor(words: list[str]) -> dict[str, float]:
     word_scores: dict[str, float] = {}
     topic_info = topic_model.get_topic_info()
 
-    for topic_id in topic_info.Topic:  # skip outliers
+    for topic_id in topic_info.Topic:
         topic_words = topic_model.get_topic(topic_id)
         for word, score in topic_words:
             if not word:
