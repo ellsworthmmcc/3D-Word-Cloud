@@ -25,7 +25,7 @@ function Word({ children, position, value }: WordProps) {
 
     const material = ref.current.material as THREE.MeshBasicMaterial
 
-    const hue = 3 - value * 3
+    const hue = 2 - value * 2
 
     const baseColor = new THREE.Color().setHSL(
       hue,
@@ -45,7 +45,7 @@ function Word({ children, position, value }: WordProps) {
     <Billboard position={position}>
       <Text
         ref={ref}
-        fontSize={1 + value * 2}
+        fontSize={1 + value * 1.5}
         letterSpacing={-0.05}
         lineHeight={1}
         color="white"
