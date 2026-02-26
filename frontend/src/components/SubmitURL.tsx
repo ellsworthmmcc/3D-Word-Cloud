@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_BASE_URL, type ArticleResponse } from "../utils";
 import { useState } from "react";
+import CloudHolder from "./Cloud";
 
 
 
@@ -62,23 +63,11 @@ function SubmitURL() {
         </button>
       </form>
 
-      {data && (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            {Object.entries(data.article_analysis).map(
-              ([word, count]) => (
-                <div
-                  key={word}
-                  className="bg-slate-800 p-3 rounded-lg flex justify-between"
-                >
-                  <span>{word}</span>
-                  <span className="text-indigo-400">
-                    {count}
-                  </span>
-                </div>
-              )
-            )}
-        </div>
-      )}
+      <div className="flex w-full">
+        {data && (
+          <CloudHolder analysis={data?.article_analysis}/>
+        )}
+      </div>
     </>
   )
 }
