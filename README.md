@@ -28,7 +28,9 @@ and a React + Three.js frontend to render interactive 3D visualizations.
 ---
 
 ## Setup Script Instructions
+```
 ./setup.sh
+```
 
 ---
 
