@@ -1,8 +1,8 @@
 # 3D-Word-Cloud-Ellsworth
 
-This project generates **3D word clouds** from article URLs. 
-It uses a **FastAPI backend** for scraping and processing text, 
-and a **React + Three.js frontend** to render interactive 3D visualizations.
+This project generates 3D word clouds from article URLs. 
+It uses a FastAPI backend for scraping and processing text, 
+and a React + Three.js frontend to render interactive 3D visualizations.
 
 ---
 
