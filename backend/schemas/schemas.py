@@ -14,5 +14,7 @@ class ArticleCreate(ArticleBase):
 class ArticleResponse(ArticleBase):
     model_config = ConfigDict(from_attributes=True)
 
+    id: int
     url: str
+    article_analysis: str
     date_posted: datetime

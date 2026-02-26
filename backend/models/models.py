@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
-from sqlalchemy import DateTime, ForeignKey, Integer, String, Text
+from sqlalchemy import JSON, DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from backend.database.database import Base
@@ -22,6 +22,11 @@ class Article(Base):
         String(150),
         unique=True,
         nullable=False,
+    )
+
+    article_analysis: Mapped[dict[str, float]] = mapped_column(
+        type_=JSON,
+        nullable=False
     )
 
     date_created: Mapped[datetime] = mapped_column(

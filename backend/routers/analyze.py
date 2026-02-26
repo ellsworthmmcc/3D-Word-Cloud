@@ -7,6 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from backend.models import models
 from backend.database.database import get_db
 from backend.schemas.schemas import ArticleCreate, ArticleResponse
+from backend.scraper.url_processor import url_processor
 
 
 router = APIRouter()
@@ -33,12 +34,16 @@ async def analyze_article(
             detail="Article already processed",
         )
 
-    # TODO
-    # scrap article, process it, save alongside article,
-    # return that information instead
+    article_analysis = await url_processor(url=article.url)
+    if article_analysis is None:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Article unable to be processed"
+        )
 
     new_article = models.Article(
         url=article.url,
+        article_analysis=article_analysis,
     )
     db.add(new_article)
     await db.commit()
