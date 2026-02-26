@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "aiosqlite>=0.22.1",
+    "bertopic>=0.17.4",
     "bs4>=0.0.2",
     "fastapi[all]>=0.133.1",
     "requests>=2.32.5",

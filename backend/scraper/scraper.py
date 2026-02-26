@@ -1,6 +1,3 @@
-import asyncio
-import re
-
 from bs4 import BeautifulSoup
 import requests
 
@@ -28,8 +25,7 @@ async def scraper(url: str) -> list[str] | None:
 
     words: list[str] = []
 
-    for el in soup.find_all(['div', 'article', 'p',]):
-        raw_text: str = str.lower(el.text)
-        words.append(raw_text)
+    for raw_text in soup.find_all(['div', 'article', 'p',]):
+        words.append(raw_text.text)
 
     return words

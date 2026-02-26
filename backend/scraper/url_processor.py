@@ -1,4 +1,3 @@
-import asyncio
 from backend.scraper.scraper import scraper
 from backend.scraper.processor import processor
 
