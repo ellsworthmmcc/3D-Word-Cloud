@@ -19,7 +19,7 @@ async def scraper(url: str) -> list[str] | None:
 
     try:
         soup = BeautifulSoup(
-            markup=requests.get(url, headers=HEADERS).text,
+            markup=requests.get(url, headers=HEADERS, timeout=10).text,
             features="html.parser"
         )
     except (requests.exceptions.RequestException) as e:
@@ -28,7 +28,7 @@ async def scraper(url: str) -> list[str] | None:
 
     words: list[str] = []
 
-    for el in soup.find_all('div'):
+    for el in soup.find_all(['div', 'article', 'p',]):
         raw_text: str = str.lower(el.text)
         words.append(raw_text)
 
