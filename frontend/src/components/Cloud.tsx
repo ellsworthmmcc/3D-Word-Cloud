@@ -45,7 +45,7 @@ function Word({ children, position, value }: WordProps) {
     <Billboard position={position}>
       <Text
         ref={ref}
-        fontSize={value + value * 2}
+        fontSize={1 + value * 2}
         letterSpacing={-0.05}
         lineHeight={1}
         color="white"
@@ -120,7 +120,7 @@ function Cloud({analysis}: CloudProps) {
 
 
   return (
-    <div className="w-screen h-screen">
+    <div className="flex w-full h-screen">
       <Canvas
         dpr={[1, 2]}
         camera={{ position: [0, 0, 35], fov: 75 }}

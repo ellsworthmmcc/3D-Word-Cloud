@@ -86,7 +86,7 @@ function SubmitURL() {
 
       <div className="flex flex-col w-full gap-10">
         {(data && !loading) && (
-          <div className="flex w-min h-min">
+          <div className="flex w-full h-full">
             <CloudHolder analysis={data?.article_analysis}/>
           </div>
         )}
