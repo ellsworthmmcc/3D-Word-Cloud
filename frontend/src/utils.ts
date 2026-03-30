@@ -5,4 +5,5 @@ export type ArticleResponse = {
   url: string,
   article_analysis: Record<string, number>,
   date_created: string,
+  date_updated: string,
 }

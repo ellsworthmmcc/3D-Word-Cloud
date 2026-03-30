@@ -33,3 +33,9 @@ class Article(Base):
         DateTime(timezone=True),
         default=lambda: datetime.now(UTC),
     )
+
+    date_updated: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(UTC),
+        onupdate=lambda: datetime.now(UTC),
+    )
