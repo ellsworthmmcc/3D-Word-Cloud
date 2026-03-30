@@ -1,7 +1,7 @@
 # 3D-Word-Cloud
 
 <div align="center">
-    <img alt="GitHub Repo Name" src="https://img.shields.io/badge/Task_Tracker-7209b7">
+    <img alt="GitHub Repo Name" src="https://img.shields.io/badge/3D_Word_Cloud-7209b7">
     <img alt="GitHub Author" src="https://img.shields.io/badge/Author-Ellsworth%20McCullough-006d77">
     <img alt="GitHub commit-activity" src="https://img.shields.io/github/commit-activity/t/ellsworthmmcc/3D-Word-Cloud">
     <img alt="GitHub contributors" src="https://img.shields.io/github/contributors/ellsworthmmcc/3D-Word-Cloud">
