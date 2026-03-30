@@ -37,11 +37,13 @@ the top 64 topic words as an explorable 3D sphere — sized and colored by relev
 ## Setup & Running
 
 ### 1. Backend
+#### Step One
 ```bash
 cd backend
 uv venv .venv
 ```
 
+#### Step Two
 **Windows (PowerShell):**
 ```powershell
 .venv\Scripts\Activate.ps1
@@ -51,6 +53,7 @@ uv venv .venv
 source .venv/bin/activate
 ```
 
+#### Step Three
 ```bash
 uv pip install -e .
 fastapi dev main.py

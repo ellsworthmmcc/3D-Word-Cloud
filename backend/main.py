@@ -22,7 +22,7 @@ async def lifespan(_app: FastAPI):
 
 
 app = FastAPI(
-    title='3D-Word-Cloud-From-Wikipedia',
+    title='3D-Word-Cloud',
     description='Generates 3D word clouds from wikipedia URLs',
     version='0.1.0',
     docs_url='/docs',

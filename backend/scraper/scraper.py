@@ -5,7 +5,7 @@ import httpx
 async def scraper(url: str) -> list[str] | None:
     '''Attempts to pull all words from a given url'''
     HEADERS = {
-        "user-agent": "3DWordCloud/1.0 (https://github.com/ellsworthmmcc/3d-word-cloud-ellsworth; bot-traffic@wikimedia.org) httpx/0.28.0",
+        "user-agent": "3DWordCloud/1.0 (https://github.com/ellsworthmmcc/3d-word-cloud; bot-traffic@wikimedia.org) httpx/0.28.0",
         "accept": "*/*",
         "accept-language": "en-US",
         "accept-encoding": "gzip, deflate, br, zstd",
