@@ -38,40 +38,6 @@ function SubmitURL() {
     }
   }
 
-  const exampleButtonSubmit = async (url: string) => {
-    setError(null);
-    setData(null);
-
-    try {
-      setLoading(true);
-
-      const response = await axios.post<ArticleResponse>(
-        `${API_BASE_URL}`, { url }
-      );
-
-      setData(response.data);
-    } catch (err: any) {
-      if (err.response?.data?.detail) {
-        setError(err.response.data.detail);
-      } else {
-        setError("An error has occured");
-      }
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  function ExampleButton({url} : {url: string}) {
-    return (
-      <button
-        onClick={() => exampleButtonSubmit(url)}
-        className="px-6 py-6 bg-indigo-600 rounded-lg hover:bg-indigo-500 disabled:opacity-50"
-      >
-        {url}
-      </button>
-    )
-  }
-
   return (
     <>
       <form
@@ -106,19 +72,6 @@ function SubmitURL() {
             <div className="text-red-500 text-xl font-semibold">
               That article cannot be analyzed. Try another one.
             </div>
-          </div>
-        )}
-        {!data && (
-          <div className="w-full flex flex-col items-center justify-center gap-6 py-6">
-            <ExampleButton
-              url="https://en.wikipedia.org/wiki/Babylon"
-            />
-            <ExampleButton
-              url="https://en.wikipedia.org/wiki/Gqeberha"
-            />
-            <ExampleButton
-              url="https://en.wikipedia.org/wiki/Eshnunna"
-            />
           </div>
         )}
 
