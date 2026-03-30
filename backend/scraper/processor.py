@@ -72,6 +72,10 @@ async def processor(words: list[str]) -> dict[str, float]:
     topic_info = topic_model.get_topic_info()
 
     for topic_id in topic_info.Topic:
+        # -1 is outliers, no reason to include
+        if topic_id == -1:
+            continue
+
         topic_words = topic_model.get_topic(topic_id)
         for word, score in topic_words:
             if not word:
@@ -81,9 +85,15 @@ async def processor(words: list[str]) -> dict[str, float]:
             else:
                 word_scores[word] = score
 
+    positive_word_scores = {
+        word: score for word,
+        score in word_scores.items()
+        if score > 0
+    }
+
     sorted_word_scores = {
         word: flo for word, flo in sorted(
-            word_scores.items(), key=lambda item: item[1], reverse=True
+            positive_word_scores.items(), key=lambda item: item[1], reverse=True
         )
     }
 
