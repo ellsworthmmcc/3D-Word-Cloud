@@ -27,11 +27,21 @@ function SubmitURL() {
       );
 
       setData(response.data);
-    } catch (err: any) {
-      if (err.response?.data?.detail) {
-        setError(err.response.data.detail);
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        if (err.response?.data?.detail) {
+          // Server responded with a specific error message
+          setError(err.response.data.detail);
+        } else if (err.request) {
+          // Request was made but no response received (e.g. backend is down)
+          setError("Could not reach the server. Is the backend running?");
+        } else {
+          // Something went wrong setting up the request
+          setError("Failed to send request.");
+        }
       } else {
-        setError("An error has occured");
+        // Non-axios error (e.g. unexpected runtime error)
+        setError("An unexpected error has occurred.");
       }
     } finally {
       setLoading(false);
