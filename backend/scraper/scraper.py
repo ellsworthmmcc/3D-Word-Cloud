@@ -1,31 +1,32 @@
 from bs4 import BeautifulSoup
-import requests
+import httpx
 
 
 async def scraper(url: str) -> list[str] | None:
     '''Attempts to pull all words from a given url'''
-    # Helps to fake being a proper user to a website
     HEADERS = {
-      "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-      "accept": "*/*",
-      "accept-language": "en-US",
-      "accept-encoding": "gzip, deflate, br, zstd",
+        "user-agent": "3DWordCloud/1.0 (https://github.com/ellsworthmmcc/3d-word-cloud-ellsworth; bot-traffic@wikimedia.org) httpx/0.28.0",
+        "accept": "*/*",
+        "accept-language": "en-US",
+        "accept-encoding": "gzip, deflate, br, zstd",
     }
 
     soup: BeautifulSoup | None = None
 
     try:
-        soup = BeautifulSoup(
-            markup=requests.get(url, headers=HEADERS, timeout=10).text,
-            features="html.parser"
-        )
-    except (requests.exceptions.RequestException) as e:
+        async with httpx.AsyncClient(verify=False) as client:
+            response = await client.get(url, headers=HEADERS, timeout=10)
+            soup = BeautifulSoup(
+                markup=response.text,
+                features="html.parser"
+            )
+    except httpx.RequestError as e:
         print(f"Error during request for: {url},\n{e}")
         return None
 
     words: list[str] = []
 
-    for raw_text in soup.find_all(['div', 'article', 'p',]):
+    for raw_text in soup.find_all(['span', 'p',]):
         words.append(raw_text.text)
 
     return words
