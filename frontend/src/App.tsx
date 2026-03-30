@@ -1,4 +1,4 @@
-import SubmitURL from "./components/submitURL";
+import SubmitURL from "./components/SubmitURL";
 
 function App() {
   return (
