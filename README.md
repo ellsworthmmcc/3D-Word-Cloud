@@ -1,5 +1,19 @@
 # 3D-Word-Cloud
 
+<div align="center">
+    <img alt="GitHub Repo Name" src="https://img.shields.io/badge/Task_Tracker-7209b7">
+    <img alt="GitHub Author" src="https://img.shields.io/badge/Author-Ellsworth%20McCullough-006d77">
+    <img alt="GitHub commit-activity" src="https://img.shields.io/github/commit-activity/t/ellsworthmmcc/3D-Word-Cloud">
+    <img alt="GitHub contributors" src="https://img.shields.io/github/contributors/ellsworthmmcc/3D-Word-Cloud">
+    <img alt="GitHub Created At" src="https://img.shields.io/github/created-at/ellsworthmmcc/3D-Word-Cloud">
+    <img alt="GitHub Last Commit" src="https://img.shields.io/github/last-commit/ellsworthmmcc/3D-Word-Cloud">
+    <img alt="GitHub Open Issues" src="https://img.shields.io/github/issues/ellsworthmmcc/3D-Word-Cloud">
+    <img alt="GitHub Closed Issues" src="https://img.shields.io/github/issues-closed/ellsworthmmcc/3D-Word-Cloud">
+    <img alt="GitHub Open PR" src="https://img.shields.io/github/issues-pr/ellsworthmmcc/3D-Word-Cloud">
+    <img alt="GitHub Closed PR" src="https://img.shields.io/github/issues-pr-closed/ellsworthmmcc/3D-Word-Cloud">
+    <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/ellsworthmmcc/3D-Word-Cloud">
+</div>
+
 Generates interactive 3D word clouds from Wikipedia article URLs using topic modeling.
 Paste a Wikipedia URL and the app scrapes the article, runs BERTopic analysis, and renders
 the top 64 topic words as an explorable 3D sphere — sized and colored by relevance.
