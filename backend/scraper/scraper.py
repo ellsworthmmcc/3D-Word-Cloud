@@ -11,10 +11,8 @@ async def scraper(url: str) -> list[str] | None:
         "accept-encoding": "gzip, deflate, br, zstd",
     }
 
-    soup: BeautifulSoup | None = None
-
     try:
-        async with httpx.AsyncClient(verify=False) as client:
+        async with httpx.AsyncClient(verify=True, follow_redirects=True) as client:
             response = await client.get(url, headers=HEADERS, timeout=10)
             soup = BeautifulSoup(
                 markup=response.text,

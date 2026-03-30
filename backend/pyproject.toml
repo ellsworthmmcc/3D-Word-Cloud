@@ -9,7 +9,6 @@ dependencies = [
     "bs4>=0.0.2",
     "fastapi[all]>=0.133.1",
     "httpx>=0.28.1",
-    "requests>=2.32.5",
     "sqlalchemy>=2.0.47",
 ]
 

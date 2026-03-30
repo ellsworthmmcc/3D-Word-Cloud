@@ -6,10 +6,9 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
-import uvicorn
 
 from backend.routers import analyze
-from backend.database.database import Base, engine, get_db
+from backend.database.database import Base, engine
 
 
 @asynccontextmanager
@@ -23,8 +22,8 @@ async def lifespan(_app: FastAPI):
 
 
 app = FastAPI(
-    title='3D-Word-Cloud-Ellsworth',
-    description='Generates 3D word clouds from links',
+    title='3D-Word-Cloud-From-Wikipedia',
+    description='Generates 3D word clouds from wikipedia URLs',
     version='0.1.0',
     docs_url='/docs',
     redoc_url='/redoc',
