@@ -18,4 +18,4 @@ class ArticleResponse(ArticleBase):
     url: str
     article_analysis: dict[str, float]
     date_created: datetime
-    date_upadted: datetime
+    date_updated: datetime
